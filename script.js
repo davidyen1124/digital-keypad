@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentInput = '';
     
     // Add audio elements
-    const keySound = new Audio('key_press.mp3');
-    const correctSound = new Audio('correct.mp3');
-    const incorrectSound = new Audio('incorrect.mp3');
+    const keySound = new Audio('assets/key_press.mp3');
+    const correctSound = new Audio('assets/correct.mp3');
+    const incorrectSound = new Audio('assets/incorrect.mp3');
     keySound.preload = 'auto';
     correctSound.preload = 'auto';
     incorrectSound.preload = 'auto';
