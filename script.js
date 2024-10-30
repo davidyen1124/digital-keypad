@@ -13,6 +13,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    // Handle touch events
+    keypad.addEventListener('touchstart', (e) => {
+        if (e.target.classList.contains('key')) {
+            e.preventDefault(); // Prevent double-firing of click event
+            e.target.classList.add('active');
+            const key = e.target.textContent;
+            pressKey(key);
+        }
+    }, { passive: false });
+
+    keypad.addEventListener('touchend', (e) => {
+        if (e.target.classList.contains('key')) {
+            e.preventDefault();
+            e.target.classList.remove('active');
+        }
+    }, { passive: false });
+
+    // Prevent stuck active state if touch is moved outside the key
+    keypad.addEventListener('touchcancel', (e) => {
+        if (e.target.classList.contains('key')) {
+            e.target.classList.remove('active');
+        }
+    });
+    
     // Handle keyboard input
     document.addEventListener('keydown', (e) => {
         const key = e.key;
