@@ -17,7 +17,25 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         const key = e.key;
         if (isValidKey(key)) {
-            pressKey(key);
+            // Find and animate the corresponding key button
+            const keyElement = Array.from(document.querySelectorAll('.key'))
+                .find(el => el.textContent === key);
+            if (keyElement) {
+                keyElement.classList.add('active');
+                pressKey(key);
+            }
+        }
+    });
+
+    // Handle keyboard release
+    document.addEventListener('keyup', (e) => {
+        const key = e.key;
+        if (isValidKey(key)) {
+            const keyElement = Array.from(document.querySelectorAll('.key'))
+                .find(el => el.textContent === key);
+            if (keyElement) {
+                keyElement.classList.remove('active');
+            }
         }
     });
     
