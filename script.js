@@ -4,45 +4,84 @@ document.addEventListener('DOMContentLoaded', () => {
     const greenLed = document.getElementById('greenLed');
     const correctPassword = '15923';
     let currentInput = '';
-    
-    // Add audio elements
-    const keySound = new Audio('assets/key_press.mp3');
-    const correctSound = new Audio('assets/correct.mp3');
-    const incorrectSound = new Audio('assets/incorrect.mp3');
-    keySound.preload = 'auto';
-    correctSound.preload = 'auto';
-    incorrectSound.preload = 'auto';
-    
-    // Function to play sound
+
+    // Move AudioContext initialization into a function
+    let audioContext = null;
+    let audioBuffers = null;
+
+    async function initAudio() {
+        if (audioContext) return; // Only initialize once
+
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        audioBuffers = {
+            keyPress: null,
+            correct: null,
+            incorrect: null
+        };
+
+        // Load the audio files
+        try {
+            const [keyPressBuffer, correctBuffer, incorrectBuffer] = await Promise.all([
+                loadAudio('assets/key_press.mp3'),
+                loadAudio('assets/correct.mp3'),
+                loadAudio('assets/incorrect.mp3')
+            ]);
+
+            audioBuffers.keyPress = keyPressBuffer;
+            audioBuffers.correct = correctBuffer;
+            audioBuffers.incorrect = incorrectBuffer;
+        } catch (err) {
+            console.log('Audio loading failed:', err);
+        }
+    }
+
+    // Load audio files
+    async function loadAudio(url) {
+        const response = await fetch(url);
+        const arrayBuffer = await response.arrayBuffer();
+        return await audioContext.decodeAudioData(arrayBuffer);
+    }
+
     function playKeySound() {
-        keySound.currentTime = 0; // Reset sound to start
-        keySound.play().catch(err => console.log('Audio play failed:', err));
+        if (!audioBuffers.keyPress) return;
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffers.keyPress;
+        source.connect(audioContext.destination);
+        source.start(0);
     }
 
     function playCorrectSound() {
-        correctSound.currentTime = 0;
-        correctSound.play().catch(err => console.log('Audio play failed:', err));
+        if (!audioBuffers.correct) return;
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffers.correct;
+        source.connect(audioContext.destination);
+        source.start(0);
     }
 
     function playIncorrectSound() {
-        incorrectSound.currentTime = 0;
-        incorrectSound.play().catch(err => console.log('Audio play failed:', err));
+        if (!audioBuffers.incorrect) return;
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffers.incorrect;
+        source.connect(audioContext.destination);
+        source.start(0);
     }
-    
-    // Handle clicks
-    keypad.addEventListener('click', (e) => {
+
+    // Update click handler to initialize audio
+    keypad.addEventListener('click', async (e) => {
         if (e.target.classList.contains('key')) {
-            playKeySound(); // Sound on physical interaction
+            await initAudio(); // Initialize audio on first interaction
+            playKeySound();
             const key = e.target.textContent;
             pressKey(key);
         }
     });
-    
-    // Handle touch events
-    keypad.addEventListener('touchstart', (e) => {
+
+    // Update touch handler
+    keypad.addEventListener('touchstart', async (e) => {
         if (e.target.classList.contains('key')) {
             e.preventDefault();
-            playKeySound(); // Sound on physical interaction
+            await initAudio(); // Initialize audio on first interaction
+            playKeySound();
             e.target.classList.add('active');
             const key = e.target.textContent;
             pressKey(key);
@@ -62,15 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
             e.target.classList.remove('active');
         }
     });
-    
-    // Handle keyboard input
-    document.addEventListener('keydown', (e) => {
+
+    // Update keyboard handler
+    document.addEventListener('keydown', async (e) => {
         const key = e.key;
         if (isValidKey(key)) {
             const keyElement = Array.from(document.querySelectorAll('.key'))
                 .find(el => el.textContent === key);
             if (keyElement && !keyElement.classList.contains('active')) {
-                playKeySound(); // Sound on physical interaction
+                await initAudio(); // Initialize audio on first interaction
+                playKeySound();
                 keyElement.classList.add('active');
                 pressKey(key);
             }
@@ -88,19 +128,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    
+
     function pressKey(key) {
         // Limit input to 5 characters
         if (currentInput.length >= 5) return;
-        
+
         currentInput += key;
-        
+
         // Check password when 5 digits are entered
         if (currentInput.length === 5) {
             setTimeout(checkPassword, 300);
         }
     }
-    
+
     function checkPassword() {
         if (currentInput === correctPassword) {
             greenLed.classList.add('active');
@@ -118,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2000);
         }
     }
-    
+
     function isValidKey(key) {
         const validKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#'];
         return validKeys.includes(key);
