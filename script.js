@@ -5,9 +5,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const correctPassword = '15923';
     let currentInput = '';
     
+    // Add audio element
+    const keySound = new Audio('key_press.mp3');
+    keySound.preload = 'auto';
+    
+    // Function to play sound
+    function playKeySound() {
+        keySound.currentTime = 0; // Reset sound to start
+        keySound.play().catch(err => console.log('Audio play failed:', err));
+    }
+    
     // Handle clicks
     keypad.addEventListener('click', (e) => {
         if (e.target.classList.contains('key')) {
+            playKeySound(); // Sound on physical interaction
             const key = e.target.textContent;
             pressKey(key);
         }
@@ -16,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle touch events
     keypad.addEventListener('touchstart', (e) => {
         if (e.target.classList.contains('key')) {
-            e.preventDefault(); // Prevent double-firing of click event
+            e.preventDefault();
+            playKeySound(); // Sound on physical interaction
             e.target.classList.add('active');
             const key = e.target.textContent;
             pressKey(key);
@@ -41,10 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         const key = e.key;
         if (isValidKey(key)) {
-            // Find and animate the corresponding key button
             const keyElement = Array.from(document.querySelectorAll('.key'))
                 .find(el => el.textContent === key);
-            if (keyElement) {
+            if (keyElement && !keyElement.classList.contains('active')) {
+                playKeySound(); // Sound on physical interaction
                 keyElement.classList.add('active');
                 pressKey(key);
             }
