@@ -5,14 +5,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const correctPassword = '15923';
     let currentInput = '';
     
-    // Add audio element
+    // Add audio elements
     const keySound = new Audio('key_press.mp3');
+    const correctSound = new Audio('correct.mp3');
+    const incorrectSound = new Audio('incorrect.mp3');
     keySound.preload = 'auto';
+    correctSound.preload = 'auto';
+    incorrectSound.preload = 'auto';
     
     // Function to play sound
     function playKeySound() {
         keySound.currentTime = 0; // Reset sound to start
         keySound.play().catch(err => console.log('Audio play failed:', err));
+    }
+
+    function playCorrectSound() {
+        correctSound.currentTime = 0;
+        correctSound.play().catch(err => console.log('Audio play failed:', err));
+    }
+
+    function playIncorrectSound() {
+        incorrectSound.currentTime = 0;
+        incorrectSound.play().catch(err => console.log('Audio play failed:', err));
     }
     
     // Handle clicks
@@ -90,12 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkPassword() {
         if (currentInput === correctPassword) {
             greenLed.classList.add('active');
+            playCorrectSound();
             setTimeout(() => {
                 greenLed.classList.remove('active');
                 currentInput = '';
             }, 2000);
         } else {
             redLed.classList.add('active');
+            playIncorrectSound();
             setTimeout(() => {
                 redLed.classList.remove('active');
                 currentInput = '';
