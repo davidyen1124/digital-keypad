@@ -33,4 +33,4 @@ The correct password is set to `15923` by default. You can change this in the `s
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the "Not PearAI's" License - a satirical license poking fun at companies that fork repositories without adding value. See the [LICENSE](LICENSE) file for the full text and a good laugh.
