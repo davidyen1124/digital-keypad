@@ -1,131 +1,116 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #fff;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  color: #000;
 }
 
 .container {
-    padding: 30px;
-    background: linear-gradient(45deg, #b4b4b4, #e2e2e2, #b4b4b4);
-    border-radius: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border: 1px solid #999;
+  padding: 30px;
+  background: linear-gradient(45deg, #b4b4b4, #e2e2e2, #b4b4b4);
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 1px solid #999;
 }
 
 .keypad {
-    position: relative;
-    display: grid;
-    grid-template-rows: repeat(4, 60px);
-    grid-template-columns: 40px repeat(3, 60px);
-    gap: 12px;
-    padding: 20px;
-    background: #000;
-    border-radius: 10px;
-    border: none;
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(4, 60px);
+  grid-template-columns: 40px repeat(3, 60px);
+  gap: 12px;
+  padding: 20px;
+  background: #000;
+  border-radius: 10px;
+  border: none;
 }
 
 .key {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #c0c0c0, #e8e8e8, #c0c0c0);
-    border: 1px solid #999;
-    border-radius: 8px;
-    font-size: 20px;
-    cursor: pointer;
-    user-select: none;
-    color: #000;
-    transition: all 0.1s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
-                inset 0 1px 1px rgba(255, 255, 255, 0.7);
-    grid-column: auto / span 1;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #c0c0c0, #e8e8e8, #c0c0c0);
+  border: 1px solid #999;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+  color: #000;
+  transition: all 0.1s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  grid-column: auto / span 1;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.key:active, .key.active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3),
-                inset 0 1px 1px rgba(255, 255, 255, 0.7);
+.key:active,
+.key.active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.7);
 }
 
 .led-container {
-    grid-column: 1;
-    grid-row: 1 / span 4;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
-    width: 40px;
-    padding-bottom: 10px;
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  width: 40px;
+  padding-bottom: 10px;
 }
 
 .led {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: 1px solid #666;
-    transition: all 0.3s ease-in-out;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid #666;
+  transition: all 0.3s ease-in-out;
 }
 
 .led.red {
-    background-color: #400;
-    box-shadow: 
-        inset 0 0 2px #600,
-        0 0 1px rgba(255, 0, 0, 0.1);
+  background-color: #400;
+  box-shadow: inset 0 0 2px #600, 0 0 1px rgba(255, 0, 0, 0.1);
 }
 
 .led.green {
-    background-color: #040;
-    box-shadow: 
-        inset 0 0 2px #060,
-        0 0 1px rgba(0, 255, 0, 0.1);
+  background-color: #040;
+  box-shadow: inset 0 0 2px #060, 0 0 1px rgba(0, 255, 0, 0.1);
 }
 
 .led.red.active {
-    --glow-color: #f00;
-    background-color: #f00;
-    box-shadow: 
-        inset 0 0 2px #fff,
-        0 0 4px #f00,
-        0 0 8px #f00,
-        0 0 12px rgba(255, 0, 0, 0.5);
-    animation: glow var(--glow-color) 1.5s ease-in-out infinite alternate;
+  --glow-color: #f00;
+  background-color: #f00;
+  box-shadow: inset 0 0 2px #fff, 0 0 4px #f00, 0 0 8px #f00,
+    0 0 12px rgba(255, 0, 0, 0.5);
+  animation: glow var(--glow-color) 1.5s ease-in-out infinite alternate;
 }
 
 .led.green.active {
-    --glow-color: #0f0;
-    background-color: #0f0;
-    box-shadow: 
-        inset 0 0 2px #fff,
-        0 0 4px #0f0,
-        0 0 8px #0f0,
-        0 0 12px #0f0,
-        0 0 16px rgba(0, 255, 0, 0.5);
-    animation: glow var(--glow-color) 1.5s ease-in-out infinite alternate;
+  --glow-color: #0f0;
+  background-color: #0f0;
+  box-shadow: inset 0 0 2px #fff, 0 0 4px #0f0, 0 0 8px #0f0, 0 0 12px #0f0,
+    0 0 16px rgba(0, 255, 0, 0.5);
+  animation: glow var(--glow-color) 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
-    from {
-        box-shadow: 
-            inset 0 0 2px #fff,
-            0 0 4px var(--glow-color),
-            0 0 8px rgba(var(--glow-color), 0.5);
-    }
-    to {
-        box-shadow: 
-            inset 0 0 2px #fff,
-            0 0 4px var(--glow-color),
-            0 0 8px var(--glow-color),
-            0 0 12px var(--glow-color),
-            0 0 16px rgba(var(--glow-color), 0.5);
-    }
+  from {
+    box-shadow: inset 0 0 2px #fff, 0 0 4px var(--glow-color),
+      0 0 8px rgba(var(--glow-color), 0.5);
+  }
+  to {
+    box-shadow: inset 0 0 2px #fff, 0 0 4px var(--glow-color),
+      0 0 8px var(--glow-color), 0 0 12px var(--glow-color),
+      0 0 16px rgba(var(--glow-color), 0.5);
+  }
 }
