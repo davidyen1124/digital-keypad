@@ -2,6 +2,8 @@
 
 This project simulates a digital lock keypad with a visual interface. Users can input a password using either mouse clicks or keyboard keys. The LEDs indicate whether the entered password is correct or incorrect.
 
+🔗 [Try the Demo](https://davidyen1124.github.io/digital-keypad/)
+
 ![Digital Lock Keypad Interface](/screenshots/keypad.png)
 
 ## Features
