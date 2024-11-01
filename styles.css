@@ -1,61 +1,40 @@
+:root {
+  /* Light theme colors */
+  --bg-color: #fff;
+  --text-color: #000;
+  --container-gradient: linear-gradient(45deg, #b4b4b4, #e2e2e2, #b4b4b4);
+  --key-gradient: linear-gradient(135deg, #c0c0c0, #e8e8e8, #c0c0c0);
+  --border-color: #999;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a1a1a;
+    --text-color: #fff;
+    --container-gradient: linear-gradient(45deg, #3a3a3a, #4a4a4a, #3a3a3a);
+    --key-gradient: linear-gradient(135deg, #505050, #606060, #505050);
+    --border-color: #666;
+  }
+}
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #fff;
+  background-color: var(--bg-color);
   font-family: 'Arial', sans-serif;
   margin: 0;
-  color: #000;
+  color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #1a1a1a;
-    color: #fff;
-  }
-
-  .container {
-    background: linear-gradient(45deg, #3a3a3a, #4a4a4a, #3a3a3a);
-    border: 1px solid #666;
-    transition: background 0.3s, border-color 0.3s;
-  }
-
-  .key {
-    background: linear-gradient(135deg, #505050, #606060, #505050);
-    border: 1px solid #666;
-    color: #fff;
-    transition: all 0.1s ease, background 0.3s, border-color 0.3s, color 0.3s;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  body {
-    background-color: #fff;
-    color: #000;
-  }
-
-  .container {
-    background: linear-gradient(45deg, #b4b4b4, #e2e2e2, #b4b4b4);
-    border: 1px solid #999;
-    transition: background 0.3s, border-color 0.3s;
-  }
-
-  .key {
-    background: linear-gradient(135deg, #c0c0c0, #e8e8e8, #c0c0c0);
-    border: 1px solid #999;
-    color: #000;
-    transition: all 0.1s ease, background 0.3s, border-color 0.3s, color 0.3s;
-  }
 }
 
 .container {
   padding: 30px;
-  background: linear-gradient(45deg, #b4b4b4, #e2e2e2, #b4b4b4);
+  background: var(--container-gradient);
   border-radius: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  border: 1px solid #999;
+  border: 1px solid var(--border-color);
   transition: background 0.3s, border-color 0.3s;
 }
 
@@ -77,13 +56,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #c0c0c0, #e8e8e8, #c0c0c0);
-  border: 1px solid #999;
+  background: var(--key-gradient);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 20px;
   cursor: pointer;
   user-select: none;
-  color: #000;
+  color: var(--text-color);
   transition: all 0.1s ease, background 0.3s, border-color 0.3s, color 0.3s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.7);
