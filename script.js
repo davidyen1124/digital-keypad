@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const keypad = document.querySelector('.keypad');
     const redLed = document.getElementById('redLed');
     const greenLed = document.getElementById('greenLed');
@@ -66,10 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
         source.start(0);
     }
 
-    // Update click handler to initialize audio
-    keypad.addEventListener('click', async (e) => {
+    // Initialize audio on page load
+    await initAudio();
+
+    // Update click handler
+    keypad.addEventListener('click', (e) => {
         if (e.target.classList.contains('key')) {
-            await initAudio(); // Initialize audio on first interaction
             playKeySound();
             const key = e.target.textContent;
             pressKey(key);
@@ -77,10 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Update touch handler
-    keypad.addEventListener('touchstart', async (e) => {
+    keypad.addEventListener('touchstart', (e) => {
         if (e.target.classList.contains('key')) {
             e.preventDefault();
-            await initAudio(); // Initialize audio on first interaction
             playKeySound();
             e.target.classList.add('active');
             const key = e.target.textContent;
@@ -103,13 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Update keyboard handler
-    document.addEventListener('keydown', async (e) => {
+    document.addEventListener('keydown', (e) => {
         const key = e.key;
         if (isValidKey(key)) {
             const keyElement = Array.from(document.querySelectorAll('.key'))
                 .find(el => el.textContent === key);
             if (keyElement && !keyElement.classList.contains('active')) {
-                await initAudio(); // Initialize audio on first interaction
                 playKeySound();
                 keyElement.classList.add('active');
                 pressKey(key);
