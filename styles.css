@@ -9,6 +9,42 @@ body {
   color: #000;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+
+  .container {
+    background: linear-gradient(45deg, #3a3a3a, #4a4a4a, #3a3a3a);
+    border: 1px solid #666;
+  }
+
+  .key {
+    background: linear-gradient(135deg, #505050, #606060, #505050);
+    border: 1px solid #666;
+    color: #fff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .container {
+    background: linear-gradient(45deg, #b4b4b4, #e2e2e2, #b4b4b4);
+    border: 1px solid #999;
+  }
+
+  .key {
+    background: linear-gradient(135deg, #c0c0c0, #e8e8e8, #c0c0c0);
+    border: 1px solid #999;
+    color: #000;
+  }
+}
+
 .container {
   padding: 30px;
   background: linear-gradient(45deg, #b4b4b4, #e2e2e2, #b4b4b4);
