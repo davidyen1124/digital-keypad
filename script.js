@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Move AudioContext initialization into a function
   let audioContext = null
   let audioBuffers = null
+  let audioResumed = false
 
   async function initAudio() {
     if (audioContext) return // Only initialize once
@@ -43,6 +44,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     return await audioContext.decodeAudioData(arrayBuffer)
   }
 
+  function resumeAudioContext() {
+    if (!audioResumed && audioContext.state === 'suspended') {
+      audioContext.resume()
+      audioResumed = true
+    }
+  }
+
   function playKeySound() {
     if (!audioBuffers.keyPress) return
     const source = audioContext.createBufferSource()
@@ -73,6 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Update click handler
   keypad.addEventListener('click', (e) => {
     if (e.target.classList.contains('key')) {
+      resumeAudioContext()
       playKeySound()
       const key = e.target.textContent
       pressKey(key)
@@ -85,6 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     (e) => {
       if (e.target.classList.contains('key')) {
         e.preventDefault()
+        resumeAudioContext()
         playKeySound()
         e.target.classList.add('active')
         const key = e.target.textContent
@@ -120,6 +130,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         (el) => el.textContent === key
       )
       if (keyElement && !keyElement.classList.contains('active')) {
+        resumeAudioContext()
         playKeySound()
         keyElement.classList.add('active')
         pressKey(key)
