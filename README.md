@@ -16,12 +16,18 @@ This project simulates a digital lock keypad with a visual interface. Users can 
 
 1. Clone the repository or download the project files.
 2. Ensure you have a web browser installed.
+3. Install [Node.js](https://nodejs.org/) so you can run a local web server.
 
 ## Usage
 
-1. Open the `index.html` file in your web browser.
-2. Use the on-screen keypad or your keyboard to enter the password.
-3. The green LED will light up if the password is correct, and the red LED will light up if the password is incorrect.
+1. Start a local web server in the project directory, for example:
+
+   ```bash
+   npx http-server
+   ```
+
+2. Open the address printed by the server (e.g., `http://localhost:8080`) in your browser.
+3. Use the on-screen keypad or your keyboard to enter the password. The green LED will light up if the password is correct, and the red LED will light up if the password is incorrect.
 
 ## Files
 
