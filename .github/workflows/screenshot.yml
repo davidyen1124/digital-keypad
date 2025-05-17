@@ -1,0 +1,32 @@
+name: Capture Screenshot on PR
+
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install puppeteer
+        run: npm install puppeteer
+      - name: Capture screenshot
+        run: node screenshot.mjs
+      - name: Comment on PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          base64=$(cat screenshot.txt)
+          gh api repos/$REPO/issues/$PR_NUMBER/comments -f body="![Screenshot](data:image/png;base64,$base64)"
