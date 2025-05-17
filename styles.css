@@ -55,7 +55,7 @@ body {
   border: none;
 }
 
-.key {
+button.key {
   width: 60px;
   height: 60px;
   display: flex;
@@ -76,8 +76,8 @@ body {
   touch-action: manipulation;
 }
 
-.key:active,
-.key.active {
+button.key:active,
+button.key.active {
   transform: translateY(2px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.7);
