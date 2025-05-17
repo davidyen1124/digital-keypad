@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const keypad = document.querySelector('.keypad')
   const redLed = document.getElementById('redLed')
   const greenLed = document.getElementById('greenLed')
-  const correctPassword = '15923'
+  const correctPassword = '15964'
   let currentInput = ''
 
   // Move AudioContext initialization into a function

@@ -31,7 +31,7 @@ This project simulates a digital lock keypad with a visual interface. Users can 
 
 ## Password
 
-The correct password is set to `15923` by default. You can change this in the `script.js` file by modifying the `correctPassword` variable.
+The correct password is set to `15964` by default. You can change this in the `script.js` file by modifying the `correctPassword` variable.
 
 ## License
 
